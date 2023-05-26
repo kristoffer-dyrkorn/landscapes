@@ -7,4 +7,4 @@ The repo contains a Node app for data preprocessing and a simple web app for ren
 
 Use together with data sources mentioned in the presentation. 
 
-Note: Note very refined yet. Some file names are hard coded. More documentation will come.
+Note: Not very refined yet. Some file names are hard coded. More documentation will come.
