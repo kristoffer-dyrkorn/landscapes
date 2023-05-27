@@ -30,7 +30,7 @@ The preprocessing code assumes you have a newer version of `node` (20.2, for exa
 - Convert the cropped image file to a more common image format, for example PNG: `gdal_translate texture.tif texture.png`
 
 - Note: Use the name texture.png so the OBJ file can successfully use the texture
-- Open the OBJ in a mesh viewer, and inspect the result:
+- Open the OBJ in a mesh viewer:
 
 ![](https://github.com/kristoffer-dyrkorn/landscapes/blob/main/images/mesh-large-textured.jpg)
 
@@ -43,7 +43,7 @@ The preprocessing code assumes you have a newer version of `node` (20.2, for exa
 - Note 1): The reference point that must provided is the geo coordinate of the lower-left (most south-eastern) point of the terrain. This is so the building coordinates will match the terrain coordinates.
 - Note 2): The terrain OBJ file that is used for setting building elevations must have coordinates to the same reference point. That will happen automatically if you have followed the previous steps in this documentation.
 
-Open the building OBJ in a mesh viewer, and inspect the result:
+Open the building OBJ in a mesh viewer:
 
 ![](https://github.com/kristoffer-dyrkorn/landscapes/blob/main/images/buildings.jpg)
 
@@ -58,6 +58,6 @@ Open the building OBJ in a mesh viewer, and inspect the result:
 - Copy the glb files to the `app/` directory (one directory up)
 - Go to the `app/` directory, install the dependencies for the web app: `npm install`, and start an http server there: `python3 -m http.server`
 - Open a browser pointing to `http://localhost:8000` (or, the address your web server uses).
-- Sit back and enjoy the final result!
+- Sit back and enjoy the final rendering!
 
 ![](https://github.com/kristoffer-dyrkorn/landscapes/blob/main/images/result.jpg)
