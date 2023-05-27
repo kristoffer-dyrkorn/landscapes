@@ -138,21 +138,19 @@ function toOBJIndices(vertices, offset) {
   return indicesString;
 }
 
-if (process.argv.length != 6) {
+if (process.argv.length != 7) {
   console.log(
-    "Usage: node osm_to_obj.js <ref_point_x> <ref_point_y> <input data dir> <output obj file>"
+    "Usage: node osm_to_obj.js <ref_point_x> <ref_point_y> <terrain_obj> <input data dir> <output obj_file>"
   );
 } else {
-  const bvh = initializeBVH("terrain.obj");
-
   const refPoint = [parseFloat(process.argv[2]), parseFloat(process.argv[3])];
-
-  const inputDir = process.argv[4];
+  const bvh = initializeBVH(process.argv[4]);
+  const inputDir = process.argv[5];
   const inputFiles = fs
     .readdirSync(inputDir)
     .filter((fileName) => fileName.endsWith(".json"));
 
-  const outputFile = process.argv[5];
+  const outputFile = process.argv[6];
 
   let objVertices = "";
   let objIndices = "";
@@ -160,24 +158,28 @@ if (process.argv.length != 6) {
 
   inputFiles.forEach((fileName) => {
     const fileData = fs.readFileSync(inputDir + fileName);
-    const buildings = JSON.parse(fileData);
 
-    buildings.features.forEach((building) => {
-      const buildingHeight = getHeight(building.properties);
-      const buildingOutline = toUTM33(building.geometry.coordinates[0]);
+    // guard against empty tiles (when there are no buildings in a tile)
+    if (fileData.length > 0) {
+      const buildings = JSON.parse(fileData);
 
-      const meshVertices = getBuildingMesh(
-        buildingOutline,
-        buildingHeight,
-        refPoint,
-        bvh
-      );
+      buildings.features.forEach((building) => {
+        const buildingHeight = getHeight(building.properties);
+        const buildingOutline = toUTM33(building.geometry.coordinates[0]);
 
-      objVertices += toOBJVertices(meshVertices);
-      objIndices += toOBJIndices(meshVertices, totalVertices);
+        const meshVertices = getBuildingMesh(
+          buildingOutline,
+          buildingHeight,
+          refPoint,
+          bvh
+        );
 
-      totalVertices += meshVertices.length;
-    });
+        objVertices += toOBJVertices(meshVertices);
+        objIndices += toOBJIndices(meshVertices, totalVertices);
+
+        totalVertices += meshVertices.length;
+      });
+    }
   });
 
   fs.writeFileSync(outputFile, objVertices + objIndices);
