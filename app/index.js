@@ -41,16 +41,12 @@ let terrainMesh, buildingMesh;
 
 const loader = new GLTFLoader();
 loader.load(
-  "terrain.glb",
+  "bergen.glb",
   function (glb) {
     terrainMesh = glb.scene.children[0];
-    terrainMesh.geometry.computeVertexNormals();
     scene.add(terrainMesh);
 
     controls.target.copy(terrainMesh.geometry.boundingSphere.center);
-
-    // helper = new VertexNormalsHelper(mesh, 50, 0xcccccc);
-    // scene.add(helper);
   },
   function (xhr) {
     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
