@@ -1,10 +1,12 @@
 # landscapes
 
+![](https://github.com/kristoffer-dyrkorn/landscapes/blob/main/images/result.jpg)
+
 Landscape visualization in the browser - code used in the presentation at NDC 2023.
 
-The repo contains a Node app for data preprocessing and a simple web app for rendering/presentation.
+The repo contains a `node` app for data processing and a simple web app for rendering/presentation.
 
-Meant to be used together with data sources mentioned in the presentation.
+The code is meant to be run on data sources / data types as described in the documentation below.
 
 # Setting up data
 
