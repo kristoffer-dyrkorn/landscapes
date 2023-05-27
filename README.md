@@ -35,12 +35,12 @@ The preprocessing code assumes you have a newer version of `node` (20.2, for exa
 
 ## Creating meshes out of building data
 
-- Open [Maptiler](https://www.maptiler.com/google-maps-coordinates-tile-bounds-projection/), zoom to zoom level 15, read out Google tile numbers (x and y) for the region you are interested in. In the current data setup, the tile area is `x: 16865 - 16807, y: 9442 - 9445`
+- Open [Maptiler](https://www.maptiler.com/google-maps-coordinates-tile-bounds-projection/), zoom to zoom level 15, read out Google tile numbers (x and y) for the region you are interested in. In the current data setup, the tile area is `x: 16865 - 16870, y: 9442 - 9445`
 - Download OpenStreetMap building tiles in GeoJSON format: `node get_buildings.mjs 16865 9442 16870 9445 buildings/`
-- Convert GeoJSON building outlines to mesh objects stored in a OBJ file, with elevations matching the terrain surface:
+- Convert the GeoJSON building outlines to mesh objects stored in a OBJ file, with elevations matching the underlying terrain surface:
   `node osm_to_obj.mjs -35000 6727000 bergen.obj buildings/ buildings.obj`
-- Note 1): The reference point that must provided is the geo coordinate of the lower-left (most south-eastern) point of the terrain. This is so the building coordinates will match the terrain coordinates.
-- Note 2): The terrain OBJ file that is used for setting building elevations must have coordinates to the same reference point. That will happen automatically if you have followed the previous steps in this documentation.
+- Note 1): The reference point that must provided is the geo coordinate of the lower-left (most south-eastern) point of the terrain. This is to convert the building coordinates to the same local coordinates that the terrain has.
+- Note 2): The terrain OBJ file that is used for setting the building elevations must have coordinates relative to the same reference point as the buildings. That will happen automatically if you have followed the steps so far in this documentation.
 
 Open the building OBJ in a mesh viewer:
 
@@ -50,7 +50,7 @@ Open the building OBJ in a mesh viewer:
 
 - Package the terrain OBJ (with texture) as a glb: `npx gltfpack -noq -i bergen.obj -o bergen.glb`
 - Package the buildings OBJ (mesh only) as a glb: `npx gltfpack -noq -i buildings.obj -o buildings.glb `
-- Note: The `gltfpack` command provided here results in a very simple conversion to glb. There are a lot more options that can be used when packaging, for example texture compression.
+- Note: The `gltfpack` command provided here gives a very simple conversion to glb. There are a lot more options that can be explored and used when packaging, for example texture compression.
 
 ## Rendering in a browser
 
