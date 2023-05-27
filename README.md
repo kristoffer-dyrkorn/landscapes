@@ -28,8 +28,7 @@ The preprocessing code assumes you have a newer version of `node` (20.2, for exa
 - Download an orthophoto, for example a satellite image (GeoTIFF file) from [Kartkatalogen](https://kartkatalog.geonorge.no/metadata/satellittdata-sentinel-2-skyfritt-opptak-norge-2022/2e996bf2-9b7b-4700-8a26-c1a8a274c136). Note: For simplicity, download data using the same coordinate system as the terrain.
 - Crop the photo to the same area of interest, for example by using GDAL: `gdal_translate -projwin -35000 6737000 -25000 6727000 S2_RGB_17.tif texture.tif`
 - Convert the cropped image file to a more common image format, for example PNG: `gdal_translate texture.tif texture.png`
-
-- Note: Use the name texture.png so the OBJ file can successfully use the texture
+- Note: Use the file name texture.png so the (currently hardcoded) material definition that the OBJ points to is ableto make use of the texture.
 - Open the OBJ in a mesh viewer:
 
 ![](https://github.com/kristoffer-dyrkorn/landscapes/blob/main/images/mesh-large-textured.jpg)
