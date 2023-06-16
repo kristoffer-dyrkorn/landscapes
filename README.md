@@ -16,9 +16,9 @@ The code is meant to be run on geodata as described in the documentation below. 
 - Open a terminal vindow and go to the `preprocessing/` directory. Install the dependencies: `npm install`.
 - Crop the terrain model to an area of interest, for example by using GDAL: `gdal_translate -projwin -35000 6737000 -25000 6727000 67m1_2_10m_z33.tif bergen.tif`.
 - Convert the GeoTIFF to a mesh, simplify it and save it as an OBJ: `node simplify_mesh.mjs bergen.tif bergen.obj`
-- Note 1): The simplification process keeps removing triangles until the max vertical error introduced by simplification is 1 meter. This can be adjusted in the source code.
-- Note 2): The OBJ file refers to a texture file called texture.png, which is not yet created. You might get warnings if you open the OBJ to inspect it at this stage.
-- Note 3): The mesh vertices in the OBJ will have coordinates relative to the lower left corner of the terrain. The unit is meters. Using that is a reference point is just a convenience here, but also improves numerical precision.
+- Note 1): The mesh simplification process keeps removing triangles until the max approximation error is 1 meter in the vertical direction. This can be adjusted in the source code.
+- Note 2): The OBJ file refers to a texture file called texture.png, which is not yet created. You might get warnings (about a missing texture) if you open the OBJ to inspect it at this stage.
+- Note 3): The mesh vertices in the OBJ will have coordinates relative to the lower left corner of the terrain. The unit is meters. Using the lower left corner as a reference point is just a convenience here, but it also improves the numerical precision when transforming and projecting vertices onto the screen.
 - Open the OBJ in a mesh viewer, for example MeshLab, and have a look at the result:
 
 ![](https://github.com/kristoffer-dyrkorn/landscapes/blob/main/images/mesh-large.jpg)
