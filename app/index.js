@@ -25,6 +25,7 @@ controls.rotateSpeed = 0.2;
 controls.update();
 
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0.05, 0.35, 0.8);
 
 const light = new THREE.AmbientLight(0xffffff, 0.3);
 scene.add(light);
@@ -37,7 +38,7 @@ const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.2);
 directionalLight2.position.set(-0.2, 0, 0.8);
 scene.add(directionalLight2);
 
-let terrainMesh, buildingMesh;
+let terrainMesh;
 
 const loader = new GLTFLoader();
 loader.load(
@@ -50,6 +51,21 @@ loader.load(
     controls.target.copy(terrainMesh.geometry.boundingSphere.center);
 
     loadTrack("track.geojson");
+  },
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  function (error) {
+    console.log("An error happened");
+  }
+);
+
+loader.load(
+  "buildings.glb",
+  function (glb) {
+    buildingMesh = glb.scene.children[0];
+    buildingMesh.material.color.set(0xffffff);
+    scene.add(buildingMesh);
   },
   function (xhr) {
     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -75,7 +91,7 @@ function loadTrack(fileName) {
         return new THREE.Vector3(p[0], p[1], p[2]);
       });
       const curve = new THREE.CatmullRomCurve3(vectorPoints);
-      const geometry = new THREE.TubeGeometry(curve, 1000, 2, 8);
+      const geometry = new THREE.TubeGeometry(curve, 1000, 5, 8);
       const material = new THREE.MeshLambertMaterial({ color: 0xff0000 });
 
       const trackMesh = new THREE.Mesh(geometry, material);
