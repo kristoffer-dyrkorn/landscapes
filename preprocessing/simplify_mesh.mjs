@@ -94,8 +94,8 @@ if (process.argv.length != 4) {
 
   console.log("Simplifying mesh...");
 
-  // simplify mesh but keep within 1 meter deviation of the original
-  tin.run(1.0);
+  // simplify mesh but keep within 0.5 meter deviation of the original
+  tin.run(0.5);
 
   console.log("...done.");
   const ratio = (100 * tin.triangles.length) / (2 * (width - 1) * (height - 1));
